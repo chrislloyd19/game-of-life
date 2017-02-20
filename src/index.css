@@ -18,6 +18,12 @@
   height: 10px;
   width: 10px;
   border: 1px solid #A9A9A9;
+}
 
+.empty {
   background-color: #D3D3D3;
+}
+
+.alive {
+  background-color: #FF2D00;
 }

@@ -2,10 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+let getRandomCell = () => {
+  return Math.random() * 100 < 93 ? 0 : 1;
+}
+
 let getInitialGameboard = (height, width) => {
   let board = [];
   for(let i = 0; i < height*width; i++) {
-    board.push(0);
+    board.push(getRandomCell());
   }
   return board;
 }
@@ -17,7 +21,7 @@ const INITIAL_BOARD = getInitialGameboard(BOARD_HEIGHT, BOARD_WIDTH);
 const Row = (props) => {
   let rows = props.cells.map((cell) => {
     return (
-      <div className="cell"></div>
+      <div className={cell === 0 ? "cell empty" : "cell alive"}></div>
     )
   })
 
