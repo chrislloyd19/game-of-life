@@ -23,7 +23,7 @@ const Row = (props) => {
     return (
       <div className={cell === 0 ? "cell empty" : "cell alive"}></div>
     )
-  })
+  });
 
   return (
     <div className="row">
@@ -41,12 +41,12 @@ const Gameboard = (props) => {
     rows[Math.floor(index/props.width)].push(cell);
 
     return rows;
-  }, [])
-    .map((row) => {
+  }, []).map((row) => {
       return (
         <Row cells={row}/>
       )
     });
+
   return (
     <div>
       {board}
