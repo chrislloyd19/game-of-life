@@ -19,7 +19,7 @@ const BOARD_WIDTH = 50;
 const INITIAL_BOARD = getInitialGameboard(BOARD_HEIGHT, BOARD_WIDTH);
 
 const Row = (props) => {
-  let rows = props.cells.map((cell) => {
+  let cells = props.cells.map((cell) => {
     return (
       <div className={cell === 0 ? "cell empty" : "cell alive"}></div>
     )
@@ -27,7 +27,7 @@ const Row = (props) => {
 
   return (
     <div className="row">
-      {rows}
+      {cells}
     </div>
   )
 }
