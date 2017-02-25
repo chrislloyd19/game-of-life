@@ -6,15 +6,23 @@ let inBounds = (index, length) => {
   return index > -1 && index < length;
 }
 
+let isRightBorder = (index, width) => {
+  return (index + 1) % width === 0;
+}
+
+let isLeftBorder = (index, width) => {
+  return index % width === 0;
+}
+
 let numberLiveNeighbors = (board, index, width) => {
   let total = 0;
   let length = board.length;
 
-  if(inBounds(index + 1, length) && board[index + 1] === 1) {
+  if(inBounds(index + 1, length) && !isRightBorder(index, width) && board[index + 1] === 1) {
     total++;
   }
 
-  if (inBounds(index - 1, length) && board[index - 1] === 1) {
+  if (inBounds(index - 1, length) && !isLeftBorder(index, width) && board[index - 1] === 1) {
     total++;
   }
 
@@ -26,19 +34,19 @@ let numberLiveNeighbors = (board, index, width) => {
     total++;
   }
 
-  if(inBounds(index + width + 1, length) && board[index + width + 1] === 1) {
+  if(inBounds(index + width + 1, length) && !isRightBorder(index, width) && board[index + width + 1] === 1) {
     total++;
   }
 
-  if(inBounds(index + width - 1, length) && board[index + width - 1] === 1) {
+  if(inBounds(index + width - 1, length) && !isLeftBorder(index, width) && board[index + width - 1] === 1) {
     total++;
   }
 
-  if (inBounds(index - width + 1, length) && board[index - width + 1] === 1) {
+  if (inBounds(index - width + 1, length) && !isRightBorder(index, width) &&  board[index - width + 1] === 1) {
     total++;
   }
 
-  if (inBounds(index - width - 1, length) && board[index - width - 1] === 1) {
+  if (inBounds(index - width - 1, length) && !isLeftBorder(index, width) && board[index - width - 1] === 1) {
     total++;
   }
 
@@ -46,7 +54,7 @@ let numberLiveNeighbors = (board, index, width) => {
 }
 
 let getRandomCell = () => {
-  return Math.random() * 100 < 93 ? 0 : 1;
+  return Math.random() * 100 < 83 ? 0 : 1;
 }
 
 let getInitialGameboard = (height, width) => {
