@@ -1,4 +1,4 @@
-.row {
+.gameBoardRow {
   padding: 0;
   margin: 0;
 
@@ -15,8 +15,8 @@
 }
 
 .cell {
-  height: 5px;
-  width: 5px;
+  height: 7px;
+  width: 7px;
   border: 1px solid #A9A9A9;
 }
 
@@ -26,4 +26,8 @@
 
 .alive {
   background-color: #FF2D00;
+}
+
+.controls {
+  
 }

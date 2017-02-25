@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
+import { Button } from 'react-bootstrap';
+import { ButtonGroup } from 'react-bootstrap';
 
 let inBounds = (index, length) => {
   return index > -1 && index < length;
@@ -77,7 +80,7 @@ const Row = (props) => {
   });
 
   return (
-    <div className="row">
+    <div className="gameBoardRow">
       {cells}
     </div>
   )
@@ -135,7 +138,7 @@ class GameOfLife extends React.Component {
   }
   startTicking() {
     this.stopTicking();
-    let moving = setInterval( () => {this.tick()}, 1000);
+    let moving = setInterval( () => {this.tick()}, 500);
     this.setState({moving: moving});
   }
   stopTicking() {
@@ -161,10 +164,24 @@ class GameOfLife extends React.Component {
           board={this.state.board}
           height={this.state.height}
           width={this.state.width} />
-        <button onClick={this.startTicking}>Start</button>
-        <button onClick={this.stopTicking}>Stop</button>
-        <button onClick={this.clearBoard}>Clear</button>
-        <span>Generations: {this.state.ticks}</span>
+          <p>Generations: {this.state.ticks}</p>
+          <ButtonGroup className="controls">
+            <Button
+              bsStyle="success"
+              onClick={this.startTicking}>
+              Start
+            </Button>
+            <Button
+              bsStyle="warning"
+              onClick={this.stopTicking}>
+              Stop
+            </Button>
+            <Button
+              bsStyle="danger"
+              onClick={this.clearBoard}>
+              Clear
+            </Button>
+          </ButtonGroup>
       </div>
     )
   }
@@ -173,7 +190,11 @@ class GameOfLife extends React.Component {
 class App extends React.Component {
   render() {
     return (
-      <GameOfLife />
+      <div className="row">
+        <h1>Game of Life</h1>
+        <p>Complexity from an initial state and simple rules. See <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">here</a> for more info.</p>
+        <GameOfLife />
+      </div>
     )
   }
 }
