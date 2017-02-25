@@ -75,7 +75,11 @@ const INITIAL_BOARD = getInitialGameboard(BOARD_HEIGHT, BOARD_WIDTH);
 const Row = (props) => {
   let cells = props.cells.map((cell) => {
     return (
-      <div className={cell === 0 ? "cell empty" : "cell alive"}></div>
+      <div
+        className={cell.value === 0 ? "cell empty" : "cell alive"}
+        onClick={() => {props.toggleCell(cell.index)}}
+        >
+      </div>
     )
   });
 
@@ -92,12 +96,17 @@ const Gameboard = (props) => {
       rows.push([]);
     }
 
-    rows[Math.floor(index/props.width)].push(cell);
+    let cellObject = {index: index, value: cell}
+
+    rows[Math.floor(index/props.width)].push(cellObject);
 
     return rows;
   }, []).map((row) => {
       return (
-        <Row cells={row}/>
+        <Row
+          cells={row}
+          toggleCell={props.toggleCell}
+        />
       )
     });
 
@@ -117,6 +126,12 @@ class GameOfLife extends React.Component {
     this.startTicking = this.startTicking.bind(this);
     this.stopTicking = this.stopTicking.bind(this);
     this.clearBoard = this.clearBoard.bind(this);
+    this.toggleCell = this.toggleCell.bind(this);
+  }
+  toggleCell(index) {
+    let newBoard = this.state.board;
+    newBoard[index] === 0 ? newBoard[index] = 1 : newBoard[index] = 1;
+    this.setState({board: newBoard});
   }
   tick() {
     let board = this.state.board;
@@ -163,25 +178,28 @@ class GameOfLife extends React.Component {
         <Gameboard
           board={this.state.board}
           height={this.state.height}
-          width={this.state.width} />
-          <p>Generations: {this.state.ticks}</p>
-          <ButtonGroup className="controls">
-            <Button
-              bsStyle="success"
-              onClick={this.startTicking}>
-              Start
-            </Button>
-            <Button
-              bsStyle="warning"
-              onClick={this.stopTicking}>
-              Stop
-            </Button>
-            <Button
-              bsStyle="danger"
-              onClick={this.clearBoard}>
-              Clear
-            </Button>
-          </ButtonGroup>
+          width={this.state.width}
+          toggleCell={this.toggleCell}
+        />
+        <p>Generations: {this.state.ticks}</p>
+        <p>Click individual cells for custom setups (works best if simulation stopped).</p>
+        <ButtonGroup className="controls">
+          <Button
+            bsStyle="success"
+            onClick={this.startTicking}>
+            Start
+          </Button>
+          <Button
+            bsStyle="warning"
+            onClick={this.stopTicking}>
+            Stop
+          </Button>
+          <Button
+            bsStyle="danger"
+            onClick={this.clearBoard}>
+            Clear
+          </Button>
+        </ButtonGroup>
       </div>
     )
   }
